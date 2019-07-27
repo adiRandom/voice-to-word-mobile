@@ -7,6 +7,7 @@ import {
 	MenuTrigger,
 	MenuProvider,
 } from 'react-native-popup-menu';
+import AppStyle from './App.style';
 
 
 interface AppState {
@@ -42,20 +43,28 @@ export default class App extends React.Component<{}, AppState>{
 	render() {
 		return (
 			<MenuProvider>
-				<View>
+				<View style={AppStyle.container}>
 					{/* Top app bar */}
-					<View>
+					<View style={AppStyle.topAppBar}>
 						<Menu>
 							{/* TODO: Add the 3 dot icon */}
 							<MenuTrigger text="Placeholder"></MenuTrigger>
-							<MenuOptions>
+							<MenuOptions customStyles={{
+								optionsContainer: AppStyle.menuItems,
+								optionText: AppStyle.menuItem
+							}}>
 								<MenuOption text="Seteaza adresa de email" onSelect={this.changeEmail}></MenuOption>
 							</MenuOptions>
 						</Menu>
 					</View>
-					<Text>{this.state.recognizedText === "" ? RecordingViewPlacehodler : this.state.recognizedText}</Text>
-					<Button title={this.state.isRecording ? "Stop" : "Start"} onPress={this.toggleRecroding}></Button>
-					<Button title="Trimite" onPress={this.email}></Button>
+					<Text style={this.state.recognizedText === "" ? AppStyle.recorderTextPlaceholder : AppStyle.recorderText}>
+						{this.state.recognizedText === "" ? RecordingViewPlacehodler : this.state.recognizedText}</Text>
+					<View style={AppStyle.button}>
+						<Button color='#5081eb' title={this.state.isRecording ? "Stop" : "Start"} onPress={this.toggleRecroding}></Button>
+					</View>
+					<View style={AppStyle.button}>
+						<Button color='#5081eb' title="Trimite" onPress={this.email}></Button>
+					</View>
 				</View >
 			</MenuProvider>
 		)
