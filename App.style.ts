@@ -17,19 +17,13 @@ const AppStyle = StyleSheet.create({
     },
     recorderTextPlaceholder: {
         color: '#888d99',
-        flex: 80,
         fontFamily: 'Roboto',
         fontSize: 14,
-        marginTop: 16,
-        marginLeft:8
     },
     recorderText: {
         color: '#ffffff',
-        flex: 80,
         fontFamily: 'Roboto',
-        fontSize: 14,
-        marginTop: 16,
-        marginLeft: 8
+        fontSize: 14
     },
     menuItem: {
         height: 42,
@@ -40,6 +34,16 @@ const AppStyle = StyleSheet.create({
     menuItems: {
         marginTop: 48
     },
+    recorderTextContainer:{
+        marginTop: 16,
+        marginLeft: 8,
+        flex: 80,
+        height:100
+    },
+    emailInput:{
+        borderBottomColor:"#5081eb",
+        borderBottomWidth:1,
+    }
 });
 
 export default AppStyle;
