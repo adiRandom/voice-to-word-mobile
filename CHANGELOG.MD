@@ -1,12 +1,16 @@
 # Changelog
 
-## [Unreleased]
+## V 0.0.3
 
 **Added**
 
  - Storage
  - Email change dialog
  - The ability to save an email address
+ - Speech reconition
+ - Clear and save options for `recognizedText`
+ - 3 dot icon
+ - Email service
 
 **Canged**
 

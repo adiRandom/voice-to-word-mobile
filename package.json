@@ -1,6 +1,6 @@
 {
   "name": "voice-to-word-mobile",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "start": "react-native run-android",
@@ -11,6 +11,7 @@
     "react": "16.8.6",
     "react-native": "0.60.4",
     "react-native-dialog": "^5.6.0",
+    "react-native-email": "^1.0.2",
     "react-native-popup-menu": "^0.15.6",
     "react-native-voice": "^0.3.0"
   },

@@ -21,7 +21,7 @@ const AppStyle = StyleSheet.create({
         fontSize: 14,
     },
     recorderText: {
-        color: '#ffffff',
+        color: '#000000',
         fontFamily: 'Roboto',
         fontSize: 14
     },
@@ -43,6 +43,10 @@ const AppStyle = StyleSheet.create({
     emailInput:{
         borderBottomColor:"#5081eb",
         borderBottomWidth:1,
+    },
+    menuTrigger:{
+        marginTop:6,
+        marginRight:6
     }
 });
 
