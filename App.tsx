@@ -40,16 +40,24 @@ type ConfirmDialogs = "SAVE" | "CLEAR";
 export default class App extends React.Component<{}, AppState>{
 
 	/**
+	 * True if recording false if not
+	 */
+	private buttonState: boolean = false;
+
+	/**
 	 * Toggle the recording and speech recognition service
 	 */
 	private toggleRecording = async () => {
 		//check whether the recording should stop or start
 
 		if (this.state.isRecording) {
-			await this.stopRecording();
+			this.buttonState = false;
+			await this.stopRecording()
 		}
 		else {
-			await this.startRecording();
+			this.buttonState = true;
+			await this.startRecording()
+
 		}
 	}
 	/**
@@ -57,11 +65,12 @@ export default class App extends React.Component<{}, AppState>{
 	 */
 	private email = () => {
 		if (!this.state.currentEmail)
-			this.showChangeEmailDialog();
-		email(this.state.currentEmail, {
-			subject: 'Voice to word',
-			body: this.state.recognizedText
-		})
+			this.showChangeEmailDialog(true);
+		else
+			email(this.state.currentEmail, {
+				subject: 'Voice to word',
+				body: this.state.recognizedText
+			})
 	}
 	/**
 	 * Change the destination email adress
@@ -137,12 +146,13 @@ export default class App extends React.Component<{}, AppState>{
 			emailAfterSave: false,
 			canRecord: true,
 			isClearDialogVisible: false,
-			isSaveDialogVisible: false
+			isSaveDialogVisible: false,
 		}
 
 		//Bind Voice events
 		Voice.onSpeechResults = this.textRecived;
 		Voice.onSpeechEnd = this.onEnded;
+		Voice.onSpeechError = this.onError;
 	}
 
 	async componentDidMount() {
@@ -178,23 +188,32 @@ export default class App extends React.Component<{}, AppState>{
 	}
 
 
-	private onEnded = () => {
-		this.stopRecording();
+	private onEnded = async () => {
+		await this.stopRecording();
 	}
+
+
+	private onError = (e: any) => {
+		if (this.buttonState)
+			this.restartListening();
+	}
+
+
 
 	private restartListening = async () => {
 		if (this.state.isRecording) {
 			await this.stopRecording(this.startRecording)
 		}
-		else
-			await this.startRecording();
+		await this.startRecording();
 	}
 
 	private stopRecording = async (callback?: () => void) => {
-		await Voice.stop();
 		this.setState({
 			isRecording: false
-		}, callback)
+		}, async () => {
+			await Voice.stop();
+			callback
+		})
 	}
 
 	private startRecording = async () => {
@@ -203,7 +222,6 @@ export default class App extends React.Component<{}, AppState>{
 				await Voice.start("ro-RO");
 			}
 			catch (e) {
-				console.log(e);
 			}
 			this.setState({
 				isRecording: true

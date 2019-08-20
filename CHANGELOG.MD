@@ -1,5 +1,12 @@
 # Changelog
 
+## V 0.0.4
+
+**Fixed**
+
+- No longer sends the email if no email adress is prior provided
+- The recording re-starts until you stop it manually
+
 ## V 0.0.3
 
 **Added**
